@@ -1,0 +1,242 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #90a892;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+.nav-links li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Hero Section */
+.hero {
+    background-image: url('hero.jpg');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    /* height: 100vh; Makes hero full-screen height */
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    background-color: #28a745;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+}
+
+/* About Section */
+.about{
+    background-color: #333;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* New content Section */
+.new-content{
+    background-color: #333;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Products Section Homepage*/
+.product-section {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #111;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.product-card {
+    background-color: #222;
+    color:white;
+    border-radius: 8px;
+    width: 200px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-image {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.product-title {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.product-price {
+    color: #39FF14;
+    font-size: 1rem;
+    margin: 5px 0 10px;
+}
+
+.buy-button {
+    background-color: #39FF14;
+    color: #111;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.buy-button:hover {
+    background-color: #2ecc71;
+}
+
+/* Review Section */
+.reviews{
+    background-color: #333;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Contact Section */
+.contact{
+    background-color: #333;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Footer Section  */
+footer {
+    background-color: #111;
+    color: #ccc;
+    padding: 40px 20px;
+    text-align: center;
+}
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.footer-links a:hover {
+
+}
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+.social-icons a {
+    color: #ccc;
+    font-size: 20px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.social-icons a:hover {
+
+}
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+/* Checkout  */
+table {
+    border-collapse: separate; /* Ensure border-spacing works */
+    border-spacing: 10px; /* Set the spacing between cells */
+    border: 1px solid #ccc; /* Optional: Table border */
+}
+th, td {
+    border: 1px solid #ccc; /* Optional: Cell borders */
+    padding: 10px; /* Optional: Padding inside cells */
+}
+
+.checkout-button {
+    display: inline-block;
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+    padding: 15px 30px; /* Spacing inside the button */
+    font-size: 18px; /* Text size */
+    font-weight: bold; /* Bold text */
+    border: none; /* No border */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    transition: all 0.3s ease; /* Smooth hover effect */
+}
+
+.checkout-button:hover {
+    background-color: #218838; /* Darker green on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.checkout-button:active {
+    background-color: #1e7e34; /* Even darker green on click */
+    transform: translateY(0); /* Reset lift effect */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow on click */
+}
