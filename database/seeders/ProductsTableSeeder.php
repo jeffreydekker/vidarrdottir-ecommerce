@@ -24,7 +24,7 @@ class ProductsTableSeeder extends Seeder
                 'stock' => 50,
                 'sku' => 'SM12345',
                 'image' => 'smartphone.jpg',
-                'category' => 'electronics',
+                'category_id' => 1,  // Ensure this matches an existing category ID in your categories table
                 'tags' => 'smartphone, gadget, electronics',
                 'meta_title' => 'Smartphone for sale',
                 'meta_description' => 'Best smartphone in the market.',
@@ -42,7 +42,7 @@ class ProductsTableSeeder extends Seeder
                 'stock' => 100,
                 'sku' => 'TS12345',
                 'image' => 'tshirt.jpg',
-                'category_id' => 2,  // Assuming category_id 2 is "Clothing"
+                'category_id' => 2,  // Assuming category ID 2 exists in categories table
                 'tags' => 't-shirt, clothing, fashion',
                 'meta_title' => 'Cotton T-shirt',
                 'meta_description' => 'Comfortable cotton T-shirt for everyday wear.',

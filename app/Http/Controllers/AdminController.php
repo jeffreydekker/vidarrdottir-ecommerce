@@ -29,7 +29,7 @@ class AdminController extends Controller
             'password' => 'required',
         ]);
 
-        // Generate a unique key for tracking login attempts
+        // // Generate a unique key for tracking login attempts
         $key = 'login-attempts:' . Str::lower($request->email) . '|' . $request->ip();
 
         // Check if the user has exceeded the allowed attempts

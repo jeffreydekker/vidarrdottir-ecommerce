@@ -27,6 +27,7 @@
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
                         </form>
                     </td>
+                    <td></td>
                 </tr>
             @endforeach
         </tbody>

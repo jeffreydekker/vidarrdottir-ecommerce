@@ -7,6 +7,9 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
+
 class ProductController extends Controller
 {
 
@@ -43,30 +46,55 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'category_id' => 'nullable|exists:categories,id',
+            'price' => 'required|numeric',
+            'description' => 'nullable|string',
+            'stock' => 'required|integer',
+            'category_id' => [
+                'nullable',
+                function ($attribute, $value, $fail) {
+                    if ($value !== 'new' && !Category::where('id', $value)->exists()) {
+                        $fail('The selected category is invalid.');
+                    }
+                },
+            ],
             'new_category' => 'nullable|string|unique:categories,name',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Ensure at least one category is provided
-        if (!$request->filled('category_id') && !$request->filled('new_category')) {
-            return back()->withErrors(['category' => 'Please select an existing category or create a new one.'])->withInput();
+        // Determine the correct category ID
+        if ($request->category_id === 'new' && $request->filled('new_category')) {
+            $category = Category::create([
+                'name' => $request->new_category,
+                'slug' => Str::slug($request->new_category),
+            ]);
+            $category_id = $category->id;
+        } elseif ($request->filled('category_id')) {
+            $category_id = $request->category_id;
+        } else {
+            return back()->withErrors(['category' => 'Please select or create a category.'])->withInput();
         }
 
-        // If a new category was entered, create it
-        if ($request->filled('new_category')) {
-            $category = Category::create(['name' => $request->new_category]);
-            $category_id = $category->id;
-        } else {
-            $category_id = $request->category_id;
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('uploads/products', 'public');
         }
 
         $slug = Str::slug($request->name);
-        // Ensure the slug is unique
 
         Product::create([
             'name' => $request->name,
             'category_id' => $category_id,
-            'slug' => $slug, // Ensure the slug is set
+            'slug' => $slug,
+            'description' => $request->description ?? '',
+            'short_description' => $request->short_description ?? '',
+            'price' => $request->price,
+            'discount_price' => $request->discount_price ?? 0,
+            'stock' => $request->stock,
+            'sku' => $request->sku ?? NULL,
+            'image' => $imagePath,
+            'tags' => $request->tags ?? '',
+            'meta_title' => $request->meta_title ?? '',
+            'meta_description' => $request->meta_description ?? '',
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully!');

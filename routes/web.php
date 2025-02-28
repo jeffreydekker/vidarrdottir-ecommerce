@@ -10,12 +10,6 @@ use App\Http\Controllers\CheckoutController;
 // USER ROUTES ---------------------------------------------------------------------------------------
     // General
     Route::get('/', [GeneralController::class, 'userHomepage'])->name('homepage');
-        //Footer Policies & FAQ
-            Route::get('/policies/privacy-policy', [GeneralController::class, 'showPrivacyPolicyPage'])->name('privacy-policy');
-            Route::get('/policies/refund-policy', [GeneralController::class, 'showRefundPolicyPage'])->name('refund-policy');
-            Route::get('/policies/shipping-policy', [GeneralController::class, 'showShippingPolicyPage'])->name('shipping-policy');
-            Route::get('/policies/terms-of-service', [GeneralController::class, 'showTermsofServicePage'])->name('terms-of-service');
-            Route::get('/policies/faq', [GeneralController::class, 'showFaqPage'])->name('faq');
 
     // Contact Page
     Route::get('/contact', [GeneralController::class, 'showContactPage'])->name('contact');
@@ -23,6 +17,13 @@ use App\Http\Controllers\CheckoutController;
 
     // About Page
     Route::get('/about', function () { return view('user.about'); })->name('about');
+
+    //Footer Policies & FAQ
+    Route::get('/policies/privacy-policy', [GeneralController::class, 'showPrivacyPolicyPage'])->name('privacy-policy');
+    Route::get('/policies/refund-policy', [GeneralController::class, 'showRefundPolicyPage'])->name('refund-policy');
+    Route::get('/policies/shipping-policy', [GeneralController::class, 'showShippingPolicyPage'])->name('shipping-policy');
+    Route::get('/policies/terms-of-service', [GeneralController::class, 'showTermsofServicePage'])->name('terms-of-service');
+    Route::get('/policies/faq', [GeneralController::class, 'showFaqPage'])->name('faq');
 
     // SHOP
         // Shop Page
