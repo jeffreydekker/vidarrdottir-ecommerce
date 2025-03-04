@@ -2,6 +2,16 @@
 
     <h1>Add New Product</h1>
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
@@ -26,8 +36,8 @@
         </div>
 
         <div class="form-group">
-            <label>Product Image:</label>
-            <input type="file" name="image" class="form-control">
+            <label>Product Images:</label>
+            <input type="file" name="images[]" multiple class="form-control">
         </div>
 
         <select name="category_id" id="category-select">

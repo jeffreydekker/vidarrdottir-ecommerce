@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -58,10 +58,11 @@ class ProductController extends Controller
                 },
             ],
             'new_category' => 'nullable|string|unique:categories,name',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images' => 'nullable|array', // Ensure it's an array
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2000', // Validate each image
         ]);
 
-        // Determine the correct category ID
+        // Determine category ID
         if ($request->category_id === 'new' && $request->filled('new_category')) {
             $category = Category::create([
                 'name' => $request->new_category,
@@ -74,28 +75,38 @@ class ProductController extends Controller
             return back()->withErrors(['category' => 'Please select or create a category.'])->withInput();
         }
 
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('uploads/products', 'public');
-        }
-
-        $slug = Str::slug($request->name);
-
-        Product::create([
+        // Create the product first
+        $product = Product::create([
             'name' => $request->name,
             'category_id' => $category_id,
-            'slug' => $slug,
+            'slug' => Str::slug($request->name),
             'description' => $request->description ?? '',
             'short_description' => $request->short_description ?? '',
-            'price' => $request->price,
+            'price' => number_format($request->price, 2, '.', ''), // Ensuring proper decimal format
             'discount_price' => $request->discount_price ?? 0,
             'stock' => $request->stock,
-            'sku' => $request->sku ?? NULL,
-            'image' => $imagePath,
+            'sku' => $request->sku ?? null,
             'tags' => $request->tags ?? '',
             'meta_title' => $request->meta_title ?? '',
             'meta_description' => $request->meta_description ?? '',
         ]);
+
+        // Handle multiple image uploads
+        $imagePaths = [];
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imagePaths[] = $image->store('products', 'public');
+            }
+        } else {
+            // If no images are uploaded, store a default placeholder
+            $imagePaths[] = 'products/istockphoto-1147544807-612x612.jpg';
+        }
+
+        // Save images in the product_images table (assuming a relation exists)
+        foreach ($imagePaths as $path) {
+            $product->images()->create(['path' => $path]);
+        }
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully!');
     }
