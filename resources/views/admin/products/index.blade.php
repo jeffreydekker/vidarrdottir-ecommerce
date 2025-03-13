@@ -6,7 +6,7 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Image</th>
+                <th>Images</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Stock</th>
@@ -19,12 +19,16 @@
                     <td>{{ $product->id }}</td>
                     <td>
                         @php
-                            $imageUrl = $product->image
-                                ? asset('storage/' . $product->image)
-                                : asset('storage/products/istockphoto-1147544807-612x612.jpg');
+                            $images = $product->images; // Get all images for the product from the relationship defined in the Product model
                         @endphp
-                            {{-- <p>{{ $imageUrl }}</p> <!-- Debug: Show the image URL --> --}}
-                        <img src="{{ $imageUrl }}" alt="Product Image" width="100">
+
+                        @if($images->isNotEmpty())
+                            @foreach ($images as $image)
+                                <img src="{{ asset('storage/' . $image->image_path) }}" alt="Product Image" width="100">
+                            @endforeach
+                        @else
+                            <img src="{{ asset('storage/products/istockphoto-1147544807-612x612.jpg') }}" alt="Default Image" width="100">
+                        @endif
                     </td>
                     <td>{{ $product->name }}</td>
                     <td>${{ number_format($product->price, 2) }}</td>

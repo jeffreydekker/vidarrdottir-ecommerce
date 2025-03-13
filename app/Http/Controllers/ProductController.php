@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
 
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -58,8 +59,8 @@ class ProductController extends Controller
                 },
             ],
             'new_category' => 'nullable|string|unique:categories,name',
-            'images' => 'nullable|array', // Ensure it's an array
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2000', // Validate each image
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2000',
         ]);
 
         // Determine category ID
@@ -75,14 +76,14 @@ class ProductController extends Controller
             return back()->withErrors(['category' => 'Please select or create a category.'])->withInput();
         }
 
-        // Create the product first
+        // Create the product
         $product = Product::create([
             'name' => $request->name,
             'category_id' => $category_id,
             'slug' => Str::slug($request->name),
             'description' => $request->description ?? '',
             'short_description' => $request->short_description ?? '',
-            'price' => number_format($request->price, 2, '.', ''), // Ensuring proper decimal format
+            'price' => number_format($request->price, 2, '.', ''),
             'discount_price' => $request->discount_price ?? 0,
             'stock' => $request->stock,
             'sku' => $request->sku ?? null,
@@ -92,24 +93,21 @@ class ProductController extends Controller
         ]);
 
         // Handle multiple image uploads
-        $imagePaths = [];
-
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $imagePaths[] = $image->store('products', 'public');
-            }
-        } else {
-            // If no images are uploaded, store a default placeholder
-            $imagePaths[] = 'products/istockphoto-1147544807-612x612.jpg';
-        }
+                $imagePath = $image->store('products', 'public');
 
-        // Save images in the product_images table (assuming a relation exists)
-        foreach ($imagePaths as $path) {
-            $product->images()->create(['path' => $path]);
+                // Store each image path in the `product_images` table
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'path' => $imagePath,
+                ]);
+            }
         }
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully!');
     }
+
 
     public function edit(Product $product)
     {
