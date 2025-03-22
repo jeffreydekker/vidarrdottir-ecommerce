@@ -1,14 +1,34 @@
 <x-layout-admin>
-    <div class="container">
-        <h2>Hello World</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, laboriosam nostrum alias voluptatibus voluptas excepturi a quaerat aspernatur. Voluptatibus, quas corrupti. Repellat veritatis, quibusdam cum velit fugit numquam ut odit.</p>
-    </div>
-    <div class="container">
-        <h2>Example heading 2</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, dignissimos doloremque. Doloribus in quaerat dolore qui, fugiat quam, animi ipsa numquam soluta consectetur velit facere, nulla quibusdam expedita officia laudantium?</p>
-    </div>
-    <div class="container">
-        <h2>Lorem</h2>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae ratione voluptatibus voluptatem accusantium porro nesciunt, libero praesentium dolores itaque fugiat sapiente dolore explicabo ab consequuntur sed alias adipisci! Fugit, iste!</p>
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">Orders Overview</h2>
+        <table class="w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border p-2">Order ID</th>
+                    <th class="border p-2">Customer</th>
+                    <th class="border p-2">Total</th>
+                    <th class="border p-2">Status</th>
+                    <th class="border p-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{-- @foreach($orders as $order) --}}
+                    <tr class="text-center">
+                        <td class="border p-2">order id</td>
+                        <td class="border p-2">customer name</td>
+                        <td class="border p-2">€price</td>
+                        <td class="border p-2">
+                            {{-- <span class="px-2 py-1 rounded {{ $order->status === 'Completed' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-black' }}"> --}}
+                                order status
+                            </span>
+                        </td>
+                        <td class="border p-2">
+                            {{-- <a href="{{ route('admin.orders.show', 'order_id') }}" class="text-blue-500">View</a> --}}
+                            view order
+                        </td>
+                    </tr>
+                {{-- @endforeach --}}
+            </tbody>
+        </table>
     </div>
 </x-layout-admin>
