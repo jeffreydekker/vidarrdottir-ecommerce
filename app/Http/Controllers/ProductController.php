@@ -98,7 +98,7 @@ class ProductController extends Controller
                 $imagePath = $image->store('products', 'public');
 
                 // Store each image path in the `product_images` table
-                ProductImage::create([
+                $productImage = ProductImage::create([
                     'product_id' => $product->id,
                     'path' => $imagePath,
                 ]);

@@ -31,7 +31,7 @@
                             @if($images->isNotEmpty())
                                 <div class="flex space-x-2 justify-center">
                                     @foreach ($images as $image)
-                                        <img src="{{ asset('storage/products' . $image->image_path) }}" alt="Product Image" class="w-16 h-16 object-cover rounded">
+                                    <img src="{{ asset('storage/products/' . $image->image_path) }}" alt="Product Image" class="w-16 h-16 object-cover rounded">
                                     @endforeach
                                 </div>
                             @else

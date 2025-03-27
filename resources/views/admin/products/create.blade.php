@@ -35,9 +35,12 @@
                 <input type="number" name="stock" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500" required>
             </div>
 
+            <!-- Image Upload Section -->
             <div>
                 <label class="block text-gray-700 font-semibold">Product Images:</label>
-                <input type="file" name="images[]" multiple class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                <input type="file" id="imageInput" name="images[]" multiple hidden>
+                <button type="button" id="addImageBtn" class="p-2 bg-green-500 text-white rounded">Add Image</button>
+                <div id="preview" class="mt-3 grid grid-cols-4 gap-2"></div>
             </div>
 
             <div>
@@ -60,9 +63,7 @@
         </form>
     </div>
 
-    <script>
-        document.getElementById('category-select').addEventListener('change', function () {
-            document.getElementById('new-category-container').classList.toggle('hidden', this.value !== 'new');
-        });
-    </script>
+    <!-- Load External JavaScript -->
+    <script src="{{ asset('js/product-upload.js') }}" defer></script>
 </x-layout-admin>
+
