@@ -32,8 +32,11 @@ class ProductController extends Controller
     // ADMIN
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('images')->get();
         $categories = Category::all();
+
+
+
         return view('admin.products.index', compact('products', 'categories'));
     }
     // ADMIN PRODUCTS CRUD
@@ -100,7 +103,7 @@ class ProductController extends Controller
                 // Store each image path in the `product_images` table
                 $productImage = ProductImage::create([
                     'product_id' => $product->id,
-                    'path' => $imagePath,
+                    'image_path' => $imagePath,
                 ]);
             }
         }

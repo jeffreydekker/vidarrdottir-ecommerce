@@ -14,6 +14,7 @@
                     <th class="border p-2">ID</th>
                     <th class="border p-2">Product</th>
                     <th class="border p-2">Name</th>
+                    <th class="border p-2">Category</th>
                     <th class="border p-2">Price</th>
                     <th class="border p-2">Stock</th>
                     <th class="border p-2">Actions</th>
@@ -24,14 +25,10 @@
                     <tr class="text-center">
                         <td class="border p-2">{{ $product->id }}</td>
                         <td class="border p-2">
-                            @php
-                                $images = $product->images;
-                            @endphp
-
-                            @if($images->isNotEmpty())
+                            @if ($product->images->isNotEmpty())
                                 <div class="flex space-x-2 justify-center">
-                                    @foreach ($images as $image)
-                                    <img src="{{ asset('storage/products/' . $image->image_path) }}" alt="Product Image" class="w-16 h-16 object-cover rounded">
+                                    @foreach ($product->images as $image)
+                                        <img src="{{ asset('storage/' . $image->image_path) }}" alt="Product Image" class="w-16 h-16 object-cover rounded">
                                     @endforeach
                                 </div>
                             @else
@@ -39,6 +36,7 @@
                             @endif
                         </td>
                         <td class="border p-2">{{ $product->name }}</td>
+                        <td class="border p-2">{{ $product->category->name}}</td>
                         <td class="border p-2">€{{ number_format($product->price, 2) }}</td>
                         <td class="border p-2">{{ $product->stock }}</td>
                         <td class="border p-2 space-x-2">

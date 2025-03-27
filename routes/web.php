@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GeneralController;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 
 // USER ROUTES ---------------------------------------------------------------------------------------
@@ -55,3 +56,9 @@ use App\Http\Controllers\CheckoutController;
         Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
         Route::post('/logout', [AdminController::class, 'adminLogout'])->name('logout');
     });
+
+    Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.products.categories.index');
+    Route::get('/admin/categories/edit/{category}', [CategoryController::class, 'edit'])->name('admin.products.categories.edit');
+    Route::post('/admin/categories/update/{category}', [CategoryController::class, 'update'])->name('admin.products.categories.update');
+    Route::post('/admin/categories/delete/{category}', [CategoryController::class, 'destroy'])->name('admin.products.categories.delete');
+
