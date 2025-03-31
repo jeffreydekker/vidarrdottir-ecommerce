@@ -4,7 +4,7 @@
             <h2 class="text-xl font-semibold">Products</h2>
             <div class="space-x-2">
                 <a href="{{ route('admin.products.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Add New Product</a>
-                <a href="#" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Edit Categories</a>
+                <a href="{{ route('admin.categories.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Edit Categories</a>
             </div>
         </div>
 

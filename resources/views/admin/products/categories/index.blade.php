@@ -9,7 +9,9 @@
             </div>
         @endif
 
-        <table class="w-full border-collapse border border-gray-300">
+        <a href="{{ route('admin.categories.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Add Category</a>
+
+        <table class="w-full border-collapse border border-gray-300 mt-4">
             <thead>
                 <tr class="bg-gray-200">
                     <th class="border p-2">ID</th>
@@ -24,8 +26,9 @@
                         <td class="border p-2">{{ $category->name }}</td>
                         <td class="border p-2">
                             <a href="{{ route('admin.categories.edit', $category) }}" class="bg-blue-500 text-white px-3 py-1 rounded">Edit</a>
-                            <form action="{{ route('admin.categories.delete', $category) }}" method="POST" class="inline-block">
+                            <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="inline-block">
                                 @csrf
+                                @method('DELETE')
                                 <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded" onclick="return confirm('Are you sure? This will delete all products under this category.')">Delete</button>
                             </form>
                         </td>

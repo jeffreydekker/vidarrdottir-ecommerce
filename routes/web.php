@@ -5,8 +5,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CategoryController;
 
 // USER ROUTES ---------------------------------------------------------------------------------------
     // General
@@ -43,22 +43,21 @@ use App\Http\Controllers\CheckoutController;
     // Admin login
     Route::get('/admin', [AdminController::class, 'showAdminLogin']);
     Route::post('/admin', [AdminController::class, 'adminLogin']);
-    // Admin Dashboard
-    Route::prefix('admin')
-    ->middleware(['isAdmin'])
-    ->name('admin.')
-    ->group(function () {
-        Route::get('/dashboard', [AdminController::class, 'adminDashboard'])->name('dashboard');
-        Route::resource('/products', ProductController::class);
-        Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
-        Route::get('/customers', [AdminController::class, 'customers'])->name('customers');
-        Route::get('/reports', [AdminController::class, 'reports'])->name('reports');
-        Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
-        Route::post('/logout', [AdminController::class, 'adminLogout'])->name('logout');
-    });
 
-    Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.products.categories.index');
-    Route::get('/admin/categories/edit/{category}', [CategoryController::class, 'edit'])->name('admin.products.categories.edit');
-    Route::post('/admin/categories/update/{category}', [CategoryController::class, 'update'])->name('admin.products.categories.update');
-    Route::post('/admin/categories/delete/{category}', [CategoryController::class, 'destroy'])->name('admin.products.categories.delete');
+    // Admin Dashboard
+        Route::prefix('admin')
+        ->middleware(['isAdmin'])
+        ->name('admin.')
+        ->group(function () {
+            Route::get('/dashboard', [AdminController::class, 'adminDashboard'])->name('dashboard');
+            Route::resource('/products', ProductController::class);
+            Route::resource('/categories', CategoryController::class);
+            Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
+            Route::get('/customers', [AdminController::class, 'customers'])->name('customers');
+            Route::get('/reports', [AdminController::class, 'reports'])->name('reports');
+            Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
+            Route::post('/logout', [AdminController::class, 'adminLogout'])->name('logout');
+        });
+
+
 

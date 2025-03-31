@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -34,9 +33,6 @@ class ProductController extends Controller
     {
         $products = Product::with('images')->get();
         $categories = Category::all();
-
-
-
         return view('admin.products.index', compact('products', 'categories'));
     }
     // ADMIN PRODUCTS CRUD
@@ -45,7 +41,6 @@ class ProductController extends Controller
         $categories = Category::all();
         return view('admin.products.create', compact('categories'));
     }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -110,8 +105,6 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully!');
     }
-
-
     public function edit(Product $product)
     {
         $categories = Category::all();
