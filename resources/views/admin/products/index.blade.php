@@ -8,6 +8,12 @@
             </div>
         </div>
 
+        @if(session('error'))
+            <div class="bg-red-200 text-red-800 p-2 mb-4 rounded">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <table class="w-full border-collapse border border-gray-300">
             <thead>
                 <tr class="bg-gray-100">
@@ -17,6 +23,7 @@
                     <th class="border p-2">Category</th>
                     <th class="border p-2">Price</th>
                     <th class="border p-2">Stock</th>
+                    <th class="border p-2">Show on Frontend</th>
                     <th class="border p-2">Actions</th>
                 </tr>
             </thead>
@@ -36,9 +43,19 @@
                             @endif
                         </td>
                         <td class="border p-2">{{ $product->name }}</td>
-                        <td class="border p-2">{{ $product->category->name}}</td>
+                        <td class="border p-2">{{ $product->category->name }}</td>
                         <td class="border p-2">€{{ number_format($product->price, 2) }}</td>
                         <td class="border p-2">{{ $product->stock }}</td>
+                        <td class="border p-2">
+                            <form method="POST" action="{{ route('admin.products.toggleFeatured', $product) }}">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="featured" value="{{ $product->featured ? 0 : 1 }}">
+                                <button type="submit" class="px-3 py-1 rounded {{ $product->featured ? 'bg-green-500' : 'bg-gray-400' }} text-white">
+                                    {{ $product->featured ? 'Yes' : 'No' }}
+                                </button>
+                            </form>
+                        </td>
                         <td class="border p-2 space-x-2">
                             <a href="{{ route('admin.products.edit', $product->id) }}" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">Edit</a>
                             <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" class="inline">

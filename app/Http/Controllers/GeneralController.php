@@ -10,11 +10,10 @@ class GeneralController extends Controller
     public function userHomepage()
     {
         // Fetch all products from the database
-        $products = Product::all();
-
+        
+        $featuredProducts = Product::where('featured', true)->limit(20)->get();
         // Pass the products to the view
         return view('homepage', compact('products'));
-
     }
 
     // Contact Page
@@ -39,10 +38,8 @@ class GeneralController extends Controller
         return redirect()->back()->with('message', 'Thanks for your message. We\'ll be in touch. 😊');
     }
 
-
     // Footer // Policies
-    public function showPrivacyPolicyPage()
-    {
+    public function showPrivacyPolicyPage(){
         return view('user.footer.policies.privacy-policy');
     }
     public function showRefundPolicyPage() {

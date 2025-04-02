@@ -58,6 +58,8 @@ use App\Http\Controllers\CategoryController;
             Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
             Route::post('/logout', [AdminController::class, 'adminLogout'])->name('logout');
         });
+        Route::put('/admin/products/{product}/toggle-featured', [ProductController::class, 'toggleFeatured'])
+            ->name('admin.products.toggleFeatured');
 
 
 

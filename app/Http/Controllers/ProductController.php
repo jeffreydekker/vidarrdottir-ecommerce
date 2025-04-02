@@ -27,7 +27,6 @@ class ProductController extends Controller
 
         return view('user.shop.index', compact('products', 'categories'));
     }
-
     // ADMIN
     public function index()
     {
@@ -119,5 +118,16 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
+    }
+    public function toggleFeatured(Product $product) {
+        // If enabling the feature and the limit is reached, prevent it
+        if (!$product->featured && Product::where('featured', true)->count() >= 20) {
+            return redirect()->route('admin.products.index')->with('error', 'Maximum of 20 featured products allowed.');
+        }
+
+        // Toggle the featured status
+        $product->update(['featured' => !$product->featured]);
+
+        return redirect()->route('admin.products.index')->with('success', 'Product visibility updated.');
     }
 }
