@@ -9,10 +9,9 @@ class GeneralController extends Controller
 {
     public function userHomepage()
     {
-        // Fetch all products from the database
-        
-        $featuredProducts = Product::where('featured', true)->limit(20)->get();
-        // Pass the products to the view
+        // Fetch all products from the database which are featured
+        $products = Product::with('images')->where('featured', true)->limit(20)->get();
+
         return view('homepage', compact('products'));
     }
 
