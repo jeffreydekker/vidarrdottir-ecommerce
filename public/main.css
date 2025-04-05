@@ -240,3 +240,31 @@ th, td {
     transform: translateY(0); /* Reset lift effect */
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow on click */
 }
+
+
+/* Product Image Hover Effect */
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.product-img {
+    width: 100%;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.product-img.hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.image-wrapper:hover .product-img.default {
+    opacity: 0;
+}
+
+.image-wrapper:hover .product-img.hover {
+    opacity: 1;
+}

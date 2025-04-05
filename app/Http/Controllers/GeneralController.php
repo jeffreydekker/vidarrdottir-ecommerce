@@ -9,8 +9,13 @@ class GeneralController extends Controller
 {
     public function userHomepage()
     {
-        // Fetch all products from the database which are featured
+        // Get the first 20 featured products with their images
         $products = Product::with('images')->where('featured', true)->limit(20)->get();
+        // Get the first and second images for each product
+        $products->each(function ($product) {
+            $product->first_image = $product->images->get(0) ?? null;
+            $product->second_image = $product->images->get(1) ?? null;
+        });
 
         return view('homepage', compact('products'));
     }
