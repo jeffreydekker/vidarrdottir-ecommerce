@@ -160,13 +160,14 @@ class ProductController extends Controller
     {
         $image = ProductImage::findOrFail($id);
 
-        // Only delete the file if a filename exists and it is found in storage
-        if ($image->filename && Storage::disk('public')->exists($image->filename)) {
-            Storage::disk('public')->delete($image->filename);
+        // Delete the file if image_path exists and the file exists in storage
+        if ($image->image_path && Storage::disk('public')->exists($image->image_path)) {
+            Storage::disk('public')->delete($image->image_path);
         }
 
         $image->delete();
 
         return redirect()->back()->with('success', 'Image deleted successfully.');
     }
+
 }

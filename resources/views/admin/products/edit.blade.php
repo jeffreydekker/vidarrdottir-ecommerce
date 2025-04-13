@@ -66,7 +66,7 @@
         <div class="flex flex-wrap gap-4">
             @foreach ($product->images as $image)
                 <div class="relative">
-                    <img src="{{ asset('storage/products/' . $image->filename) }}" class="w-32 h-32 object-cover rounded">
+                    <img src="{{ asset('storage/' . $image->filename) }}" class="w-32 h-32 object-cover rounded">
                     <form action="{{ route('admin.products.images.destroy', $image->id) }}" method="POST" class="absolute top-0 right-0">
                         @csrf
                         @method('DELETE')
