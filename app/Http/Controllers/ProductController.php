@@ -111,15 +111,41 @@ class ProductController extends Controller
     }
     public function update(Request $request, Product $product)
     {
-        $product->update($request->all());
+        // Validate input (you can adjust rules as needed)
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'category' => 'string',
+            'description' => 'nullable|string',
+            'stock' => 'required|integer',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        // Update product data
+        $product->update($validated);
+
+        // Handle uploaded images (if any)
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $imageFile) {
+                $filename = time() . '_' . $imageFile->getClientOriginalName();
+                $imageFile->storeAs('public/products', $filename);
+
+                $product->images()->create([
+                    'image_path' => 'products/' . $filename,
+                ]);
+            }
+        }
+
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
     }
+
     public function destroy(Product $product)
     {
         $product->delete();
         return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
     }
-    public function toggleFeatured(Product $product) {
+    public function toggleFeatured(Product $product)
+    {
         // If enabling the feature and the limit is reached, prevent it
         if (!$product->featured && Product::where('featured', true)->count() >= 20) {
             return redirect()->route('admin.products.index')->with('error', 'Maximum of 20 featured products allowed.');
@@ -129,5 +155,18 @@ class ProductController extends Controller
         $product->update(['featured' => !$product->featured]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product visibility updated.');
+    }
+    public function destroyProductImage($id)
+    {
+        $image = ProductImage::findOrFail($id);
+
+        // Only delete the file if a filename exists and it is found in storage
+        if ($image->filename && Storage::disk('public')->exists($image->filename)) {
+            Storage::disk('public')->delete($image->filename);
+        }
+
+        $image->delete();
+
+        return redirect()->back()->with('success', 'Image deleted successfully.');
     }
 }

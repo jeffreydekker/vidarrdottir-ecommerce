@@ -51,6 +51,7 @@ use App\Http\Controllers\CategoryController;
         ->group(function () {
             Route::get('/dashboard', [AdminController::class, 'adminDashboard'])->name('dashboard');
             Route::resource('/products', ProductController::class);
+                Route::delete('/products/images/{id}', [ProductController::class, 'destroyProductImage'])->name('products.images.destroy');
             Route::resource('/categories', CategoryController::class);
             Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
             Route::get('/customers', [AdminController::class, 'customers'])->name('customers');

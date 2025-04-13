@@ -1,11 +1,17 @@
 <x-layout-user>
 
     <!-- Hero Section -->
-    <section class="hero bg-black text-white py-16 text-center">
-        <div class="max-w-3xl mx-auto">
-            <h1 class="text-4xl font-bold tracking-wider uppercase">Explore the Essence of Nature</h1>
-            <p class="text-lg mt-4">Discover a curated selection of nature-inspired items.</p>
-            <a href="#products" class="mt-6 inline-block bg-white text-black px-6 py-3 rounded-full uppercase font-semibold tracking-wide hover:bg-gray-200 transition">Shop Now</a>
+    <section class="relative h-screen bg-gray-900 text-white">
+        <img src="/storage/front-end-images/pexels-lucadross-31487011.jpg" alt="Nature Background" class="absolute inset-0 w-full h-full object-cover opacity-40">
+
+        <div class="relative z-10 flex flex-col justify-center items-start h-full max-w-5xl mx-auto px-6">
+            <h1 class="text-5xl md:text-6xl font-extrabold uppercase tracking-widest mb-4 drop-shadow-md">
+                Explore the Essence of Nature
+            </h1>
+            <p class="text-xl md:text-2xl mb-6 drop-shadow">Discover a curated selection of nature-inspired items.</p>
+            <a href="#products" class="bg-white text-black px-8 py-4 rounded-full uppercase font-semibold tracking-wide hover:bg-gray-200 transition">
+                Shop Now
+            </a>
         </div>
     </section>
 
@@ -57,6 +63,13 @@
             @endforeach
         </div>
     </section>
+
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
 
 
 </x-layout-user>
