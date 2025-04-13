@@ -125,13 +125,13 @@ class ProductController extends Controller
         $product->update($validated);
 
         // Handle uploaded images (if any)
-        if ($request->hasFile('images')) {
+        if ($request->hasFile('images'))
+        {
             foreach ($request->file('images') as $imageFile) {
-                $filename = time() . '_' . $imageFile->getClientOriginalName();
-                $imageFile->storeAs('public/products', $filename);
+                $imagePath = $imageFile->store('products', 'public');
 
                 $product->images()->create([
-                    'image_path' => 'products/' . $filename,
+                    'image_path' => $imagePath,
                 ]);
             }
         }
