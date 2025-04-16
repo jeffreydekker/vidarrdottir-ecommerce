@@ -16,7 +16,7 @@ class ProductController extends Controller
     // USER
     public function showShopPage(Request $request)
     {
-        $query = Product::query();
+        $query = Product::with('images');
 
         if ($request->has('category') && $request->category !== 'all') {
             $query->where('category_id', $request->category);
@@ -27,6 +27,7 @@ class ProductController extends Controller
 
         return view('user.shop.index', compact('products', 'categories'));
     }
+
     // ADMIN
     public function index()
     {
