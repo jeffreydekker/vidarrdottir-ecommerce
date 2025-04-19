@@ -59,6 +59,14 @@
                     💳 Proceed to Checkout
                 </a>
             </div>
+
+            <div class="">
+                <a href="{{ route('shop.index') }}" class="inline-block bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded shadow transition duration-200">
+                    🔙 Continue Shopping
+                </a>
+            </div>
+
+
         </div>
     </div>
 </x-layout-user>

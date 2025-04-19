@@ -22,7 +22,7 @@
         <a href="#" class="mt-4 inline-block bg-white text-black px-6 py-3 rounded-full uppercase font-semibold tracking-wide hover:bg-gray-200 transition">Check It Out</a>
     </section>
 
-    <!-- Shop Section -->
+    <!-- Product Section -->
     <section class="bg-black py-16" id="products">
         <h2 class="text-3xl font-semibold uppercase text-center text-white tracking-wide mb-10">Featured Ritually Crafted Offerings</h2>
 
@@ -52,11 +52,15 @@
                     <p class="text-gray-400 text-sm italic">{{ $product->description ?? 'Handcrafted with care' }}</p>
                     <p class="text-lg font-medium text-gold mt-2">${{ number_format($product->price, 2) }}</p>
 
-                    <form action="{{ route('cart.add') }}" method="POST" class="mt-auto w-full">
+                    <form action="{{ route('cart.add') }}" method="POST" class="mt-auto w-full add-to-cart-form">
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                         <input type="hidden" name="quantity" value="1">
-                        <button type="submit" class="mt-3 bg-gray-800 text-white px-6 py-2 w-40 rounded hover:bg-gray-600 transition uppercase font-medium tracking-wide">Add to Cart</button>
+                        <button type="submit"
+                                class="add-to-cart-btn mt-3 bg-gray-800 text-white px-6 py-2 w-40 rounded hover:bg-gray-600 transition uppercase font-medium tracking-wide"
+                                data-product-id="{{ $product->id }}">
+                            Add to Cart
+                        </button>
                     </form>
                 </div>
             </div>
@@ -68,6 +72,41 @@
         document.getElementById('menu-toggle').addEventListener('click', function () {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
+        });
+    </script>
+
+    {{-- Add to cart AJAX script --}}
+    <script>
+        document.querySelectorAll('.add-to-cart-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const button = form.querySelector('.add-to-cart-btn');
+                const formData = new FormData(form);
+
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json',
+                    },
+                    body: formData,
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network error');
+                    return response.json();
+                })
+                .then(data => {
+                    button.textContent = 'In cart';
+                    button.disabled = true;
+                    button.classList.remove('bg-gray-800');
+                    button.classList.add('bg-green-600');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Could not add to cart. Try again later.');
+                });
+            });
         });
     </script>
 

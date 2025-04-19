@@ -33,7 +33,8 @@ class CartController extends Controller
 
         session()->put('cart', $cart);
 
-        return back()->with('success', 'Product added to cart!');
+        return response()->json(['success' => true, 'message' => 'Product added to cart!']);
+
     }
 
     // Show the cart to the user
