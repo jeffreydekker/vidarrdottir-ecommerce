@@ -25,6 +25,12 @@ class ProductController extends Controller
         $products = $query->get();
         $categories = Category::all();
 
+        // 👇 Add this block to attach first/second images
+        $products->each(function ($product) {
+            $product->first_image = $product->images->get(0) ?? null;
+            $product->second_image = $product->images->get(1) ?? null;
+        });
+
         return view('user.shop.index', compact('products', 'categories'));
     }
 
