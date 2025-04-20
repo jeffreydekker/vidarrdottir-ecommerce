@@ -39,6 +39,7 @@
 
         public function processCheckout(Request $request)
         {
+            // get items in cart from session
             $cart = session()->get('cart', []);
 
             if (empty($cart)) {
