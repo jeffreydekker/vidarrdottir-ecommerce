@@ -24,7 +24,6 @@ Schema::create('orders', function (Blueprint $table) {
     $table->string('customer_country');
     $table->string('customer_state')->nullable();
     $table->string('customer_company')->nullable();
-    $table->string('customer_address');
     $table->string('payment_option'); // Payment method, e.g. PayPal, iDEAL, etc.
     $table->text('order_note')->nullable();
     $table->decimal('total_price', 10, 2);
