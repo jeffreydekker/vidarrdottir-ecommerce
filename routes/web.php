@@ -31,9 +31,9 @@ use App\Http\Controllers\CategoryController;
         Route::get('/shop', [ProductController::class, 'showShopPage'])->name('shop.index');
         // Cart operations
         Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
-        Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
         Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
         //Check out products in cart
+        Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
         Route::get('/checkout', [CheckoutController::class, 'showCheckoutPage'])->name('checkout');
         Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
         Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');

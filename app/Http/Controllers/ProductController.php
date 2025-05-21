@@ -25,7 +25,6 @@ class ProductController extends Controller
         $products = $query->get();
         $categories = Category::all();
 
-        // 👇 Add this block to attach first/second images
         $products->each(function ($product) {
             $product->first_image = $product->images->get(0) ?? null;
             $product->second_image = $product->images->get(1) ?? null;
@@ -145,7 +144,6 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
     }
-
     public function destroy(Product $product)
     {
         $product->delete();
@@ -176,5 +174,4 @@ class ProductController extends Controller
 
         return redirect()->back()->with('success', 'Image deleted successfully.');
     }
-
 }

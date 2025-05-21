@@ -39,7 +39,9 @@
                                     @endforeach
                                 </div>
                             @else
-                                <img src="{{ asset('storage/products/istockphoto-1147544807-612x612.jpg') }}" alt="Default Image" class="w-16 h-16 object-cover rounded">
+                                <div class="flex space-x-2 justify-center">
+                                    <img src="{{ asset('storage/products/istockphoto-1147544807-612x612.jpg') }}" alt="Default Image" class="w-16 h-16 object-cover rounded">
+                                </div>
                             @endif
                         </td>
                         <td class="border p-2">{{ $product->name }}</td>
