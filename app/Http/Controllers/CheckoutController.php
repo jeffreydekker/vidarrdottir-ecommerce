@@ -93,7 +93,6 @@
             }
         }
 
-
         public function success() {
             return view('checkoutSuccess');
         }
